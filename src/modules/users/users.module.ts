@@ -5,6 +5,7 @@ import { UsersController } from "@users/infra/controllers/users.controller";
 
 import { Module } from "@nestjs/common";
 import { SharedModule } from "@shared/shared.module";
+import { UsersController } from "./infra/controllers/users.controller";
 
 @Module({
   imports: [SharedModule],

@@ -1,9 +1,22 @@
-import { Controller, Get, Post, Body } from "@nestjs/common";
+import { CreateUserDto } from "@users/application/dto/user.dto";
+import { UserService } from "@users/application/services/user.service";
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+} from "@nestjs/common";
 import { CurrentUser } from "@shared/infra/decorators/current-user.decorator";
 import type { AuthenticatedUser } from "@shared/infra/decorators/current-user.decorator";
 
 @Controller("users")
 export class UsersController {
+  constructor(private readonly userService: UserService) {}
+
+  @Get()
+  async a() {
+    return "ok";
+  }
 
   @Get("me")
   getProfile(@CurrentUser() user: AuthenticatedUser) {
@@ -11,11 +24,7 @@ export class UsersController {
   }
 
   @Post()
-  create(@Body() body: any) {
-    // temporário só pra teste
-    return {
-      message: "Usuário recebido",
-      data: body
-    };
+  async create(@Body() body: CreateUserDto) {
+    return this.userService.create(body);
   }
 }
